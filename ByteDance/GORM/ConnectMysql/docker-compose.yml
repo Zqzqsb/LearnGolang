@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:5.7  # 使用 MySQL 5.7 镜像
+    container_name: mysql_gorm_test  # 容器名称
+    restart: unless-stopped  # 容器重启策略
+    ports:
+      - "3306:3306"  # 映射主机的 3306 端口到容器的 3306 端口
+    environment:
+      MYSQL_ROOT_PASSWORD: Zq123456  # 设置 root 用户的密码
+      MYSQL_DATABASE:  GormTest  # 初始化时创建的数据库（可选）
+    volumes:
+      - mysql_gorm_test:/var/lib/mysql # 数据存储在本地卷
+      - ./my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf  # （可选）自定义 MySQL 配置文件
+
+volumes:
+  mysql_gorm_test:
+    driver: local  # 使用本地卷驱动
